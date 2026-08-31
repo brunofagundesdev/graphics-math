@@ -1,6 +1,6 @@
-import { Vector4 } from "../vectors/Vector4";
-import { Matrix } from "./Matrix";
-import { Matrix3 } from "./Matrix3";
+import { Vector4 } from "../vectors/Vector4.js";
+import { Matrix } from "./Matrix.js";
+import { Matrix3 } from "./Matrix3.js";
 
 export class Matrix4 extends Matrix {
     constructor(

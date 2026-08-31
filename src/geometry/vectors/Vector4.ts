@@ -1,7 +1,7 @@
-import { lerp } from "../../interpolation/lerp";
-import { Angle } from "../../units/Angle";
-import { clamp } from "../../utils/clamp";
-import { Matrix4 } from "../matrices/Matrix4";
+import { lerp } from "../../interpolation/lerp.js";
+import { Angle } from "../../units/Angle.js";
+import { clamp } from "../../utils/clamp.js";
+import { Matrix4 } from "../matrices/Matrix4.js";
 
 export class Vector4 {
     public constructor(

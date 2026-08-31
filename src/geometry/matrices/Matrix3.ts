@@ -1,8 +1,8 @@
-import { Angle } from "../../units/Angle";
-import { EulerRotation } from "../rotations/EulerRotation";
-import { Vector3 } from "../vectors/Vector3";
-import { Matrix } from "./Matrix";
-import { Matrix2 } from "./Matrix2";
+import { Angle } from "../../units/Angle.js";
+import { EulerRotation } from "../rotations/EulerRotation.js";
+import { Vector3 } from "../vectors/Vector3.js";
+import { Matrix } from "./Matrix.js";
+import { Matrix2 } from "./Matrix2.js";
 
 export class Matrix3 extends Matrix {
     public constructor(

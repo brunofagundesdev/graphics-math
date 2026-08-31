@@ -1,4 +1,4 @@
-import { Angle } from "../../units/Angle";
+import { Angle } from "../../units/Angle.js";
 
 export class EulerRotation {
     constructor(

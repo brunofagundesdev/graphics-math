@@ -1,8 +1,8 @@
-import { lerp } from "../../interpolation/lerp";
-import { Angle } from "../../units/Angle";
-import { clamp } from "../../utils/clamp";
-import { Matrix3 } from "../matrices/Matrix3";
-import { EulerRotation } from "../rotations/EulerRotation";
+import { lerp } from "../../interpolation/lerp.js";
+import { Angle } from "../../units/Angle.js";
+import { clamp } from "../../utils/clamp.js";
+import { Matrix3 } from "../matrices/Matrix3.js";
+import { EulerRotation } from "../rotations/EulerRotation.js";
 
 export class Vector3 {
     public constructor(

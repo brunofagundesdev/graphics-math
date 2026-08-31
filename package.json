@@ -1,16 +1,28 @@
 {
-  "name": "graphics-math",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "type": "module",
-  "devDependencies": {
-    "@types/node": "^26.1.1",
-    "prettier": "^3.9.6",
-    "typescript": "^7.0.2"
-  }
+	"name": "@brunofagundesdev/graphics-math",
+	"version": "1.0.0",
+	"description": "Mathematics library for 2D and 3D graphics",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		}
+	},
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"build": "tsc"
+	},
+	"keywords": [],
+	"type": "module",
+	"devDependencies": {
+		"@types/node": "^26.1.1",
+		"prettier": "^3.9.6",
+		"typescript": "^7.0.2"
+	}
 }

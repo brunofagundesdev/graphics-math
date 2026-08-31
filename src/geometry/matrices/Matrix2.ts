@@ -1,6 +1,6 @@
-import { Angle } from "../../units/Angle";
-import { Vector2 } from "../vectors/Vector2";
-import { Matrix } from "./Matrix";
+import { Angle } from "../../units/Angle.js";
+import { Vector2 } from "../vectors/Vector2.js";
+import { Matrix } from "./Matrix.js";
 
 export class Matrix2 extends Matrix {
     public constructor(
