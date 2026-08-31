@@ -1,7 +1,8 @@
-import { lerp } from "../interpolation/lerp";
-import { Angle } from "../units/Angle";
-import { clamp } from "../utils/clamp";
-import { EulerRotation } from "./rotations/EulerRotation";
+import { lerp } from "../../interpolation/lerp";
+import { Angle } from "../../units/Angle";
+import { clamp } from "../../utils/clamp";
+import { Matrix3 } from "../matrices/Matrix3";
+import { EulerRotation } from "../rotations/EulerRotation";
 
 export class Vector3 {
     public constructor(
@@ -50,37 +51,15 @@ export class Vector3 {
         return this;
     }
 
-    public rotate(rotation: EulerRotation, pivot: Vector3 = new Vector3(0, 0, 0)): this {
-        const x: number = this.x - pivot.x;
-        const y: number = this.y - pivot.y;
-        const z: number = this.z - pivot.z;
+    public transform(matrix: Matrix3, origin: Vector3 = Vector3.zero()): this {
+        return this
+            .subtract(origin)
+            .applyMatrix(matrix)
+            .add(origin);
+    }
 
-        const cosineX: number = Math.cos(rotation.x.radians);
-        const sineX: number = Math.sin(rotation.x.radians);
-
-        const cosineY: number = Math.cos(rotation.y.radians);
-        const sineY: number = Math.sin(rotation.y.radians);
-
-        const cosineZ: number = Math.cos(rotation.z.radians);
-        const sineZ: number = Math.sin(rotation.z.radians);
-
-        const x1: number = cosineZ * x - sineZ * y;
-        const y1: number = sineZ * x + cosineZ * y;
-        const z1: number = z;
-
-        const x2: number = cosineY * x1 - sineY * z1;
-        const y2: number = y1;
-        const z2: number = sineY * x1 + cosineY * z1;
-
-        const x3: number = x2;
-        const z3: number = cosineX * z2 - sineX * y2;
-        const y3: number = sineX * z2 + cosineX * y2;
-
-        this.x = x3 + pivot.x;
-        this.y = y3 + pivot.y;
-        this.z = z3 + pivot.z;
-
-        return this;
+    public rotate(rotation: EulerRotation, origin: Vector3 = Vector3.zero()): this {
+        return this.transform(Matrix3.rotation(rotation), origin);
     }
 
     public length(): number {
@@ -138,6 +117,14 @@ export class Vector3 {
         return this.multiplyScalar(-1);
     }
 
+    public equals(vector: Vector3): boolean {
+        return (
+            vector.x === this.x &&
+            vector.y === this.y &&
+            vector.z === this.z
+        );
+    }
+
     public lerp(target: Vector3, t: number): this {
         this.x = lerp(this.x, target.x, t);
         this.y = lerp(this.y, target.y, t);
@@ -164,6 +151,27 @@ export class Vector3 {
         return Angle.radians(arcCosine);
     }
 
+    public applyMatrix(matrix: Matrix3): this {
+        const x = this.x;
+        const y = this.y;
+        const z = this.z;
+
+        this.x =
+            matrix.get(0, 0) * x +
+            matrix.get(0, 1) * y +
+            matrix.get(0, 2) * z;
+        this.y =
+            matrix.get(1, 0) * x +
+            matrix.get(1, 1) * y +
+            matrix.get(1, 2) * z;
+        this.z =
+            matrix.get(2, 0) * x +
+            matrix.get(2, 1) * y +
+            matrix.get(2, 2) * z;
+
+        return this;
+    }
+
     // static methods
     public static add(vectorA: Vector3, vectorB: Vector3): Vector3 {
         return vectorA.clone().add(vectorB);
@@ -177,7 +185,23 @@ export class Vector3 {
         return vector.clone().negate();
     }
 
-    static lerp(a: Vector3, b: Vector3, t: number): Vector3 {
+    public static lerp(a: Vector3, b: Vector3, t: number): Vector3 {
         return a.clone().lerp(b, t);
+    }
+
+    public static average(vectors: Vector3[]): Vector3 {
+        const average: Vector3 = new Vector3(0, 0, 0);
+        if (vectors.length === 0)
+            return average;
+        
+        for (const vector of vectors) {
+            average.add(vector);
+        }
+
+        return average.divideScalar(vectors.length);
+    }
+
+    public static zero(): Vector3 {
+        return new Vector3(0, 0, 0);
     }
 }

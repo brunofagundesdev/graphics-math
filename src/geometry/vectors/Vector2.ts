@@ -1,5 +1,6 @@
-import { lerp } from "../interpolation/lerp";
-import { Angle } from "../units/Angle";
+import { lerp } from "../../interpolation/lerp";
+import { Angle } from "../../units/Angle";
+import { Matrix2 } from "../matrices/Matrix2";
 
 export class Vector2 {
     public constructor(
@@ -42,16 +43,19 @@ export class Vector2 {
         return this;
     }
 
-    public rotate(angle: Angle, origin: Vector2 = new Vector2(0, 0)): this {
-        const x: number = this.x - origin.x;
-        const y: number = this.y - origin.y;
+    public transform(matrix: Matrix2, origin: Vector2 = Vector2.zero()): this {
+        return this
+            .subtract(origin)
+            .applyMatrix(matrix)
+            .add(origin);
+    }
 
-        const radians: number = angle.radians;
+    public rotate(angle: Angle, origin: Vector2 = Vector2.zero()): this {
+        return this.transform(Matrix2.rotation(angle), origin);
+    }
 
-        this.x = Math.cos(radians) * x - Math.sin(radians) * y + origin.x;
-        this.y = Math.sin(radians) * x + Math.cos(radians) * y + origin.y;
-
-        return this;
+    public scale(x: number, y: number, origin: Vector2 = Vector2.zero()) {
+        return this.transform(Matrix2.scale(x, y), origin);
     }
 
     public length(): number {
@@ -97,6 +101,13 @@ export class Vector2 {
         return this;
     }
 
+    public equals(vector: Vector2): boolean {
+        return (
+            vector.x === this.x &&
+            vector.y === this.y
+        );
+    }
+
     public lerp(target: Vector2, t: number): this {
         this.x = lerp(this.x, target.x, t);
         this.y = lerp(this.y, target.y, t);
@@ -125,6 +136,16 @@ export class Vector2 {
         return Angle.radians(arcTangent);
     }
 
+    public applyMatrix(matrix: Matrix2): this {
+        const x = this.x;
+        const y = this.y;
+
+        this.x = matrix.get(0, 0) * x + matrix.get(0, 1) * y;
+        this.y = matrix.get(1, 0) * x + matrix.get(1, 1) * y;
+
+        return this;
+    }
+
     // static methods
     public static add(vectorA: Vector2, vectorB: Vector2): Vector2 {
         return vectorA.clone().add(vectorB);
@@ -138,7 +159,23 @@ export class Vector2 {
         return vector.clone().negate();
     }
 
-    static lerp(a: Vector2, b: Vector2, t: number): Vector2 {
+    public static lerp(a: Vector2, b: Vector2, t: number): Vector2 {
         return a.clone().lerp(b, t);
+    }
+
+    public static average(vectors: Vector2[]): Vector2 {
+        const average: Vector2 = new Vector2(0, 0);
+        if (vectors.length === 0)
+            return average;
+
+        for (const vector of vectors) {
+            average.add(vector);
+        }
+
+        return average.divideScalar(vectors.length);
+    }
+
+    public static zero(): Vector2 {
+        return new Vector2(0, 0);
     }
 }
