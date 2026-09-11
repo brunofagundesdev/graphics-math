@@ -39,7 +39,7 @@ import {
 
 const position = new Vector3(10, 20, 30);
 
-const rotation = Matrix4.rotationY(Math.PI / 2);
+const rotation = Matrix3.rotationY(Angle.radians(Math.PI / 2));
 
 position.applyMatrix(rotation);
 

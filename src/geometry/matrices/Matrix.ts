@@ -1,11 +1,5 @@
 import { isBetween } from "../../utils/isBetween.js";
 
-
-
-// fazer a método para matriz de cofatores
-// fazer a método para matriz de adjunta
-// fazer a método para matriz transposta
-
 export abstract class Matrix {
     protected values: Float32Array;
 

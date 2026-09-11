@@ -1,6 +1,6 @@
 {
 	"name": "graphics-math",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Mathematics library for 2D and 3D computer graphics",
 	"author": {
 		"name": "Bruno Fagundes",
@@ -32,7 +32,18 @@
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"build": "tsc"
 	},
-	"keywords": [],
+	"keywords": [
+		"computer-graphics",
+		"linear-algebra",
+		"vectors",
+		"matrices",
+		"geometry",
+		"2d",
+		"3d",
+		"transformations",
+		"typescript",
+		"game-development"
+	],
 	"type": "module",
 	"devDependencies": {
 		"@types/node": "^26.1.1",

@@ -15,10 +15,6 @@ export class Matrix3 extends Matrix {
         return new Matrix3(this.values);
     }
 
-    // [1, 2, 3], 1 2
-    // [0, 1, 4], 0 1
-    // [5, 6, 0]  5 6
-
     public determinant(): number {
         const values = this.values;
 
