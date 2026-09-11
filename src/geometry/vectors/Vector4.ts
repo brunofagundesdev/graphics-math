@@ -57,6 +57,10 @@ export class Vector4 {
     }
 
     public perspectiveDivide(): this {
+        if (this.w === 0) {
+            throw new Error("Cannot perform perspective divide with w = 0.");
+        }
+
         this.x /= this.w;
         this.y /= this.w;
         this.z /= this.w;
@@ -66,7 +70,7 @@ export class Vector4 {
         return this;
     }
 
-    public transform(matrix: Matrix4, origin: Vector4 = Vector4.zero()): this {
+    public transform(matrix: Matrix4, origin: Vector4 = Vector4.point(0, 0, 0)): this {
         return this.subtract(origin).applyMatrix(matrix).add(origin);
     }
 
@@ -75,7 +79,7 @@ export class Vector4 {
     }
 
     public lengthSquared(): number {
-        return this.x * this.x + this.y * this.y + this.z * this.z + this.w * this.w;
+        return this.x * this.x + this.y * this.y + this.z * this.z;
     }
 
     public distanceTo(vector: Vector4): number {
@@ -86,9 +90,8 @@ export class Vector4 {
         const deltaX: number = this.x - vector.x;
         const deltaY: number = this.y - vector.y;
         const deltaZ: number = this.z - vector.z;
-        const deltaW: number = this.w - vector.w;
 
-        return deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ + deltaW * deltaW;
+        return deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ;
     }
 
     public normalize(): this {
@@ -102,7 +105,7 @@ export class Vector4 {
     }
 
     public dot(vector: Vector4): number {
-        return this.x * vector.x + this.y * vector.y + this.z * vector.z + this.w * vector.w;
+        return this.x * vector.x + this.y * vector.y + this.z * vector.z;
     }
 
     public negate(): this {
@@ -174,11 +177,11 @@ export class Vector4 {
 
     // static methods
 
-    public static point(x: number, y: number, z: number) {
+    public static point(x: number, y: number, z: number): Vector4 {
         return new Vector4(x, y, z, 1);
     }
 
-    public static direction(x: number, y: number, z: number) {
+    public static direction(x: number, y: number, z: number): Vector4 {
         return new Vector4(x, y, z, 0);
     }
 

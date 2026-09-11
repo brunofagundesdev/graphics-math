@@ -1,3 +1,5 @@
+import { Angle } from "../../units/Angle.js";
+import { EulerRotation } from "../rotations/EulerRotation.js";
 import { Vector4 } from "../vectors/Vector4.js";
 import { Matrix } from "./Matrix.js";
 import { Matrix3 } from "./Matrix3.js";
@@ -98,12 +100,64 @@ export class Matrix4 extends Matrix {
         ]);
     }
 
+    public static translation(x: number, y: number = x, z: number = x): Matrix4 {
+        return new Matrix4([
+            1, 0, 0, x,
+            0, 1, 0, y,
+            0, 0, 1, z,
+            0, 0, 0, 1
+        ]);
+    }
+
     public static scale(x: number, y: number = x, z: number = x, w: number = x): Matrix4 {
         return new Matrix4([
             x, 0, 0, 0,
             0, y, 0, 0,
             0, 0, z, 0,
             0, 0, 0, w
+        ]);
+    }
+
+    public static rotation(rotation: EulerRotation) {
+        return Matrix3
+            .rotationZ(rotation.z)
+            .multiply(Matrix3.rotationY(rotation.y))
+            .multiply(Matrix3.rotationX(rotation.x));
+    }
+
+    public static rotationX(angle: Angle): Matrix4 {
+        const cosine = Math.cos(angle.radians);
+        const sine = Math.sin(angle.radians);
+
+        return new Matrix4([
+            1, 0, 0, 0,
+            0, cosine, -sine, 0,
+            0, sine, cosine, 0,
+            0, 0, 0, 1
+        ]);
+    }
+
+    public static rotationY(angle: Angle): Matrix4 {
+        const cosine = Math.cos(angle.radians);
+        const sine = Math.sin(angle.radians);
+
+        return new Matrix4([
+            cosine, 0, sine, 0,
+            0, 1, 0, 0,
+            -sine, 0, cosine, 0,
+            0, 0, 0, 1
+        ]);
+    }
+
+    public static rotationZ(angle: Angle): Matrix4 {
+        const cosine = Math.cos(angle.radians);
+        const sine = Math.sin(angle.radians);
+
+        return new Matrix4([
+            cosine, -sine, 0, 0,
+            sine, cosine, 0, 0,
+            0, 0, 1, 0,
+            0, 0, 0, 1
         ]);
     }
 

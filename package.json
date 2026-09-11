@@ -1,7 +1,20 @@
 {
-	"name": "@brunofagundesdev/graphics-math",
+	"name": "graphics-math",
 	"version": "1.0.0",
-	"description": "Mathematics library for 2D and 3D graphics",
+	"description": "Mathematics library for 2D and 3D computer graphics",
+	"author": {
+		"name": "Bruno Fagundes",
+		"email": "brunofagundesdev@gmail.com"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/brunofagundesdev/graphics-math.git"
+	},
+	"bugs": {
+		"url": "https://github.com/brunofagundesdev/graphics-math/issues"
+	},
+	"homepage": "https://github.com/brunofagundesdev/graphics-math#readme",
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"exports": {
@@ -12,7 +25,8 @@
 	},
 	"files": [
 		"dist",
-		"README.md"
+		"README.md",
+		"LICENSE"
 	],
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
