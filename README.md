@@ -111,15 +111,19 @@ Vector4 is therefore primarily a representation for homogeneous coordinates rath
 
 After a perspective transformation, perspectiveDivide() converts the homogeneous coordinate back into normalized Cartesian coordinates:
 
+```ts
 point.applyMatrix(projectionMatrix).perspectiveDivide();
+```
 
 Conceptually, the perspective divide performs:
-
+```ts
 x' = x / w
 y' = y / w
 z' = z / w
+```
 
 and then sets w to 1.
+
 ---
 
 ### Matrices

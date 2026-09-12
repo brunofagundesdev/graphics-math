@@ -118,11 +118,11 @@ export class Matrix4 extends Matrix {
         ]);
     }
 
-    public static rotation(rotation: EulerRotation) {
-        return Matrix3
+    public static rotation(rotation: EulerRotation): Matrix4 {
+        return Matrix4
             .rotationZ(rotation.z)
-            .multiply(Matrix3.rotationY(rotation.y))
-            .multiply(Matrix3.rotationX(rotation.x));
+            .multiply(Matrix4.rotationY(rotation.y))
+            .multiply(Matrix4.rotationX(rotation.x));
     }
 
     public static rotationX(angle: Angle): Matrix4 {
